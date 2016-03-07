@@ -6,5 +6,6 @@ class CreateDatasets < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_attachment :datasets, :file
   end
 end
