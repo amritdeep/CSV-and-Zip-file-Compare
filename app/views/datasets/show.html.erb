@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Dataset name:</strong>
+  <%= @dataset.dataset_name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dataset.description %>
+</p>
+
+<%= link_to 'Edit', edit_dataset_path(@dataset) %> |
+<%= link_to 'Back', datasets_path %>
