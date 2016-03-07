@@ -10,6 +10,7 @@ class DatasetsController < ApplicationController
   # GET /datasets/1
   # GET /datasets/1.json
   def show
+    @dataset = Dataset.find(params[:id])
   end
 
   # GET /datasets/new
