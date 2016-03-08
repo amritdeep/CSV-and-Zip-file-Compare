@@ -16,6 +16,7 @@
     <% @dataset.records.first.data.keys.each do |key| %>
       <th><%= key.capitalize %></th>
     <% end %>
+      <th><%= "File" %></th>
     </tr>
   </thead>
 	<tbody>
@@ -24,7 +25,13 @@
 	      <% record.data.values.each do |value| %>
 	        <td><%= value %></td>
 	      <% end %>
-	    </tr>
+          <% if record.pdf_file_name.nil?  %>
+            <td><%= puts "Sorry" %></td>
+          <% else %>
+            <td><%= record.pdf_file_name.split('-').last %></td>
+          <% end %>
+      </tr> 
+
 	  <% end %>
 	  </tbody>
 	 

@@ -40,6 +40,7 @@ class Dataset < ActiveRecord::Base
 	  		zip.each do |entry|
 		  		self.records.each do |record|
 		  			if entry.name.include?record.data[:ajb_corp_dbp]
+		  			# if entry.name.include?record.data.keys[1]
 			  			record.pdf_file_name = entry.name
 			  			record.save
 		  			end
