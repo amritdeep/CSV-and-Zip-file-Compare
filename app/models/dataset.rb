@@ -13,7 +13,8 @@ class Dataset < ActiveRecord::Base
   	validates_attachment :zipfile, presence: true,
     :content_type => { content_type: 'application/zip' }
 
-    before_save :parse_file #, :parse_zipfile
+    # before_save :parse_file #, :parse_zipfile
+    after_save :parse_pdf
 
 	  def parse_file
 	    tempfile = file.queued_for_write[:original].read
@@ -34,4 +35,32 @@ class Dataset < ActiveRecord::Base
 	    # tempzipfile = zipfile.queued_for_write[:original].read
 	    # tempzipfile = zipfile.queued_for_write[:original]
 	  end
+
+	  def parse_pdf
+	  	zipfile_file_name = zipfile.instance.zipfile_file_name
+	  	copy_file =  zipfile.copy_to_local_file(:original, "tmp/#{zipfile_file_name}")
+	  	local_zip_file = "tmp/#{zipfile_file_name}"
+
+	  	Zip::File.open(local_zip_file) do |zip|
+	  		puts zip.count
+	  		zip.each do |entry|
+	  			binding.pry
+		  		self.records.each do |record|
+		  			puts record.id
+	  			binding.pry
+		  			
+		  			puts record.data[]
+		  		end
+
+
+	  		end
+	  		# self.records.each do |record|
+	  		# 	puts record.id
+	  		# 	puts record.data[]
+	  		# end
+	  	end
+	  	
+	  end
+
+
 end

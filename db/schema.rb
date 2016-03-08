@@ -31,8 +31,12 @@ ActiveRecord::Schema.define(version: 20160307215258) do
   create_table "records", force: :cascade do |t|
     t.text     "data"
     t.integer  "dataset_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "pdf_file_name"
+    t.string   "pdf_content_type"
+    t.integer  "pdf_file_size"
+    t.datetime "pdf_updated_at"
   end
 
   add_index "records", ["dataset_id"], name: "index_records_on_dataset_id"
