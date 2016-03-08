@@ -34,17 +34,20 @@ class Dataset < ActiveRecord::Base
 	  	zipfile_file_name = zipfile.instance.zipfile_file_name
 	  	copy_file =  zipfile.copy_to_local_file(:original, "tmp/#{zipfile_file_name}")
 	  	local_zip_file = "tmp/#{zipfile_file_name}"
+	  	folder_name = zipfile_file_name.split('.').first
 
 	  	Zip::File.open(local_zip_file) do |zip|
-	  		puts zip.count
 	  		zip.each do |entry|
-		  		self.records.each do |record|
-		  			if entry.name.include?record.data[:ajb_corp_dbp]
-		  			# if entry.name.include?record.data.keys[1]
-			  			record.pdf_file_name = entry.name
-			  			record.save
-		  			end
-		  		end
+	  			puts "Extracting #{entry.name}"
+	  			entry.extract("tmp/#{folder_name}/#{entry.name}")
+		  		# self.records.each do |record|
+		  		# 	if entry.name.include?record.data[:ajb_corp_dbp]
+		  		# 	# if entry.name.include?record.data.keys[1]
+			  	# 		record.pdf_file_name = entry.name
+			  	# 		binding.pry
+			  	# 		record.save
+		  		# 	end
+		  		# end
 	  		end
 	  	end
 	  	
