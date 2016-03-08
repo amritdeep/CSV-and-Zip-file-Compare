@@ -32,7 +32,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'paperclip'
-gem 'aws-sdk'
+# gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
 gem 'rubyzip'
 gem 'zip-zip' 
