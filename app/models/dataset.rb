@@ -1,4 +1,6 @@
 require 'csv'
+require 'rubygems'
+require 'zip'
 
 class Dataset < ActiveRecord::Base
 	has_many :records, :dependent => :destroy
@@ -7,7 +9,11 @@ class Dataset < ActiveRecord::Base
   	validates_attachment :file, presence: true,
     :content_type => { content_type: 'text/csv' }
 
-    before_save :parse_file
+  	has_attached_file :zipfile
+  	validates_attachment :zipfile, presence: true,
+    :content_type => { content_type: 'application/zip' }
+
+    before_save :parse_file #, :parse_zipfile
 
 	  def parse_file
 	    tempfile = file.queued_for_write[:original].read
@@ -21,5 +27,11 @@ class Dataset < ActiveRecord::Base
 	      record.data = hash
 	      record.save
 	    end
+	  end
+
+	  def parse_zipfile
+	  	# binding.pry
+	    # tempzipfile = zipfile.queued_for_write[:original].read
+	    # tempzipfile = zipfile.queued_for_write[:original]
 	  end
 end
