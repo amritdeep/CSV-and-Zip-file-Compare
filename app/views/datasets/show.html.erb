@@ -26,9 +26,9 @@
 	        <td><%= value %></td>
 	      <% end %>
           <% if record.pdf_file_name.nil?  %>
-            <td><%= "No File" %></td>
+            <td><%= button_to "Upload", "#" %></td>
           <% else %>
-            <td><%= record.pdf_file_name.split('-').last.gsub("_", " ").strip! %></td>
+            <td><%=link_to record.pdf_file_name.split('-').last.gsub("_", " ").strip!, "#" %></td>
           <% end %>
       </tr> 
 
