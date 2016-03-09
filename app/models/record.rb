@@ -3,6 +3,6 @@ class Record < ActiveRecord::Base
   serialize :data, Hash
 
   	has_attached_file :pdf
-  	validates_attachment :pdf, presence: true,
+  	validates_attachment :pdf, #presence: true,
     :content_type => { content_type: 'application/pdf' }
 end
