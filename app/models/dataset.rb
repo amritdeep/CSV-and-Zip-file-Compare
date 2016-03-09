@@ -39,15 +39,16 @@ class Dataset < ActiveRecord::Base
 	  	Zip::File.open(local_zip_file) do |zip|
 	  		zip.each do |entry|
 	  			puts "Extracting #{entry.name}"
-	  			entry.extract("tmp/#{folder_name}/#{entry.name}")
-		  		# self.records.each do |record|
-		  		# 	if entry.name.include?record.data[:ajb_corp_dbp]
-		  		# 	# if entry.name.include?record.data.keys[1]
-			  	# 		record.pdf_file_name = entry.name
-			  	# 		binding.pry
-			  	# 		record.save
-		  		# 	end
-		  		# end
+	  			zip_file_path = "tmp/#{folder_name}/#{entry.name}"
+	  			entry.extract(zip_file_path)
+		  		self.records.each do |record|
+		  			if entry.name.include?record.data[:ajb_corp_dbp]
+			  			file = File.open(zip_file_path)
+			  			record.pdf = file
+			  			file.close
+			  			record.save!
+		  			end
+		  		end
 	  		end
 	  	end
 	  	
