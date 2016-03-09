@@ -1,6 +1,7 @@
 require 'csv'
 require 'rubygems'
 require 'zip'
+require 'fileutils'
 
 class Dataset < ActiveRecord::Base
 	has_many :records, :dependent => :destroy
@@ -36,22 +37,53 @@ class Dataset < ActiveRecord::Base
 	  	local_zip_file = "tmp/#{zipfile_file_name}"
 	  	folder_name = zipfile_file_name.split('.').first
 
+	  	## Unzip the file
 	  	Zip::File.open(local_zip_file) do |zip|
 	  		zip.each do |entry|
 	  			puts "Extracting #{entry.name}"
-	  			zip_file_path = "tmp/#{folder_name}/#{entry.name}"
-	  			entry.extract(zip_file_path)
-		  		self.records.each do |record|
-		  			if entry.name.include?record.data[:ajb_corp_dbp]
-			  			file = File.open(zip_file_path)
-			  			record.pdf = file
-			  			file.close
-			  			record.save!
-		  			end
-		  		end
+	  			@zip_file_path = "tmp/#{folder_name}/#{entry.name}"
+	  			entry.extract(@zip_file_path) { true }
 	  		end
 	  	end
+
+	  	folder = folder_name.gsub("_", " ")
+	  	files = Dir.glob("tmp/#{folder_name}/#{folder}/*")
 	  	
+	  	self.records.each do |record|
+		  	files.each do |file|
+		  		if file.split('-').last.include?record.data[:ajb_corp_dbp] #|| record.data[:ajb_corp_dbp].include?file.split('-').last
+			  		f = File.open(file)
+			  		record.pdf = f
+			  		f.close
+			  		record.save!
+		  		end
+		  	end
+	  	end	
+
+	  	# files.each do |file|
+	  	# 	f = File.open(file)
+	  	# 	f.close
+	  	# end
+
+	  	# uploading_file_dir = "tmp/#{folder_name}/#{folder_name}"
+	  	# deleting_folder = "tmp/#{folder_name}/_MACOSX"
+
+	  	# # FileUtils.rm_rf("tmp/#{folder_name}/_MACOSX")
+	  	# # FileUtils.rm_rf(Dir.glob("tmp/#{folder_name}/_MACOSX"))
+	  	# Dir.entries(uploading_file_dir).select {|f| !File.directory? f}
+
+	  	## Uploading in AWS
+  			# FileUtils.rm_rf(zip_file_path) if zip_file_path.include?('__MACOSX')
+	  		# self.records.each do |record|
+	  		# 	# if entry.name.include?record.data[:ajb_corp_dbp]
+	  		# 	# 	# sleep 1
+		  	# 	# 	file = File.open(zip_file_path)
+		  	# 	# 	record.pdf = file
+		  	# 	# 	file.close
+		  	# 	# 	record.save!
+	  		# 	# end
+	  		# end
+
 	  end
 
 
