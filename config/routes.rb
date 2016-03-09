@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :datasets
+  # get 'record/show'
+
+  # resources :datasets
+  resources :datasets do
+    resources :record
+  end
 
   root 'datasets#index'
 
