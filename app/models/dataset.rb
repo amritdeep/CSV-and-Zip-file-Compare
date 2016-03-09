@@ -62,32 +62,8 @@ class Dataset < ActiveRecord::Base
 	  	end	
 
 	  	## Removing File from Tmp Folder
-
-	  	# files.each do |file|
-	  	# 	f = File.open(file)
-	  	# 	f.close
-	  	# end
-
-	  	# uploading_file_dir = "tmp/#{folder_name}/#{folder_name}"
-	  	# deleting_folder = "tmp/#{folder_name}/_MACOSX"
-
-	  	# # FileUtils.rm_rf("tmp/#{folder_name}/_MACOSX")
-	  	# # FileUtils.rm_rf(Dir.glob("tmp/#{folder_name}/_MACOSX"))
-	  	# Dir.entries(uploading_file_dir).select {|f| !File.directory? f}
-
-	  	## Uploading in AWS
-  			# FileUtils.rm_rf(zip_file_path) if zip_file_path.include?('__MACOSX')
-	  		# self.records.each do |record|
-	  		# 	# if entry.name.include?record.data[:ajb_corp_dbp]
-	  		# 	# 	# sleep 1
-		  	# 	# 	file = File.open(zip_file_path)
-		  	# 	# 	record.pdf = file
-		  	# 	# 	file.close
-		  	# 	# 	record.save!
-	  		# 	# end
-	  		# end
-
+	  	FileUtils.rm_rf("#{local_zip_file}")
+	  	FileUtils.rm_rf(Dir.glob("tmp/#{folder_name}"))
 	  end
-
 
 end
