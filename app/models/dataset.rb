@@ -52,7 +52,6 @@ class Dataset < ActiveRecord::Base
 	  	end		  	
 	  end
 
-
 	  ## Uploading to S3 Server
 	  def upload_to_s3(folder_name)
 	  	folder = folder_name.gsub("_", " ")
@@ -64,7 +63,7 @@ class Dataset < ActiveRecord::Base
 	  def store_pdf_file(files)
 	  	self.records.each do |record|
 		  	files.each do |file|
-		  		if file.split('-').last.include?record.data[:ajb_corp_dbp] #|| record.data[:ajb_corp_dbp].include?file.split('-').last
+		  		if file.split('-').last.include?record.data[:name] #|| record.data[:ajb_corp_dbp].include?file.split('-').last
 			  		f = File.open(file)
 			  		record.pdf = f
 			  		f.close
