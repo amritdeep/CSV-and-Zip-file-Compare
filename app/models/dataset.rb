@@ -41,11 +41,12 @@ class Dataset < ActiveRecord::Base
 	  	Zip::File.open(local_zip_file) do |zip|
 	  		zip.each do |entry|
 	  			puts "Extracting #{entry.name}"
-	  			@zip_file_path = "tmp/#{folder_name}/#{entry.name}"
-	  			entry.extract(@zip_file_path) { true }
+	  			zip_file_path = "tmp/#{folder_name}/#{entry.name}"
+	  			entry.extract(zip_file_path) { true }
 	  		end
 	  	end
 
+	  	## Uploading to S3 Server
 	  	folder = folder_name.gsub("_", " ")
 	  	files = Dir.glob("tmp/#{folder_name}/#{folder}/*")
 	  	
@@ -59,6 +60,8 @@ class Dataset < ActiveRecord::Base
 		  		end
 		  	end
 	  	end	
+
+	  	## Removing File from Tmp Folder
 
 	  	# files.each do |file|
 	  	# 	f = File.open(file)
