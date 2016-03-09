@@ -28,7 +28,7 @@
           <% if record.pdf_file_name.nil?  %>
             <td><%= "No File" %></td>
           <% else %>
-            <td><%= record.pdf_file_name.split('-').last %></td>
+            <td><%= record.pdf_file_name.split('-').last.gsub("_", " ").strip! %></td>
           <% end %>
       </tr> 
 
