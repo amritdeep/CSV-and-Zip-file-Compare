@@ -36,20 +36,32 @@ class Dataset < ActiveRecord::Base
 	  	copy_file =  zipfile.copy_to_local_file(:original, "tmp/#{zipfile_file_name}")
 	  	local_zip_file = "tmp/#{zipfile_file_name}"
 	  	folder_name = zipfile_file_name.split('.').first
+	  	unzip_file(local_zip_file, folder_name)
+	  	upload_to_s3(folder_name)
+	  	remove_unwanted_files(local_zip_file, folder_name)
+	  end
 
-	  	## Unzip the file
-	  	Zip::File.open(local_zip_file) do |zip|
+	  ## Unzip the file
+	  def unzip_file(file_name, folder)
+	  	Zip::File.open(file_name) do |zip|
 	  		zip.each do |entry|
 	  			puts "Extracting #{entry.name}"
-	  			zip_file_path = "tmp/#{folder_name}/#{entry.name}"
+	  			zip_file_path = "tmp/#{folder}/#{entry.name}"
 	  			entry.extract(zip_file_path) { true }
 	  		end
-	  	end
+	  	end		  	
+	  end
 
-	  	## Uploading to S3 Server
+
+	  ## Uploading to S3 Server
+	  def upload_to_s3(folder_name)
 	  	folder = folder_name.gsub("_", " ")
 	  	files = Dir.glob("tmp/#{folder_name}/#{folder}/*")
-	  	
+	  	store_pdf_file(files)
+	  end
+
+	  ## Store pdf files for record
+	  def store_pdf_file(files)
 	  	self.records.each do |record|
 		  	files.each do |file|
 		  		if file.split('-').last.include?record.data[:ajb_corp_dbp] #|| record.data[:ajb_corp_dbp].include?file.split('-').last
@@ -59,11 +71,13 @@ class Dataset < ActiveRecord::Base
 			  		record.save!
 		  		end
 		  	end
-	  	end	
-
-	  	## Removing File from Tmp Folder
-	  	FileUtils.rm_rf("#{local_zip_file}")
-	  	FileUtils.rm_rf(Dir.glob("tmp/#{folder_name}"))
+	  	end	  	
 	  end
+	  
+	  ## Removing File from Tmp Folder
+	  def remove_unwanted_files(files, folder)
+	  	FileUtils.rm_rf("#{files}")
+	  	FileUtils.rm_rf(Dir.glob("tmp/#{folder}"))	  	
+	  end	  
 
 end
