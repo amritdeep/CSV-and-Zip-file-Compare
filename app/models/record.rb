@@ -7,11 +7,12 @@ class Record < ActiveRecord::Base
 	  				:s3_domain_url => "******.s3.amazonaws.com",
 	                :storage => :s3,
 	                :s3_credentials => Rails.root.join("config/aws.yml"),
-	                :bucket => '*****',
+	                :bucket => 'keystone-development',
 	                :s3_permissions => :public_read,
 	                :s3_protocol => "http",
 	                :convert_options => { :all => "-auto-orient" },
 	                :encode => 'utf8'
+
   	validates_attachment :pdf, #presence: true,
     :content_type => { content_type: 'application/pdf' }
 end
