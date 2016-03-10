@@ -13,4 +13,7 @@ development:
 
 test:
   <<: *default
+  username: postgres
+  host: postgres
+  password: ''
   database: kestone_test
