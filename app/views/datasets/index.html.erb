@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<% if @dataset.present? %>
+
 <h1>Listing Batch</h1>
 
 <table>
@@ -24,4 +26,6 @@
 
 <br>
 
-<%= link_to 'New Dataset', new_dataset_path %>
+<% end %>
+
+<%= link_to 'Run Batch', new_dataset_path, :class => 'btn btn-default', :role => 'button' %>

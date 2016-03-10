@@ -11,23 +11,22 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group col-xs-2">
     <%= f.label :file, "Upload CSV File" %><br>
-    <%= f.file_field :file %>
+    <%= f.file_field :file, :class => 'btn btn-primary btn-sm' %>
   </div>
 
-   <div class="field">
+   <div class="field form-group col-xs-2">
     <%= f.label :zipfile, "Upload Zip File" %><br>
-    <%= f.file_field :zipfile %>
+    <%= f.file_field :zipfile, :class => 'btn btn-primary btn-sm' %>
   </div> 
-  
 
-  <div class="field">
-    <%= f.label :batch %><br>
-    <%= f.text_field :batch %>
-  </div>
-  
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field form-group col-xs-2">
+    <%= f.label :batch, "Batch", :class => 'sr-only' %><br>
+    <%= f.text_field :batch, :class => 'form-control', :placeholder => "Batch Name" %>
+  </div>  
+
+  <div class="actions form-group col-xs-2">
+    <%= f.submit "Compare CSV & Zip", :class => 'btn btn-success btn-block' %>
   </div>
 <% end %>

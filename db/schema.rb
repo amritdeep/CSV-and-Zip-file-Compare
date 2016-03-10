@@ -14,8 +14,7 @@
 ActiveRecord::Schema.define(version: 20160310144843) do
 
   create_table "datasets", force: :cascade do |t|
-    t.string   "dataset_name"
-    t.text     "description"
+    t.string   "batch"
     t.integer  "user_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
