@@ -6,6 +6,9 @@ require 'fileutils'
 class Dataset < ActiveRecord::Base
 	has_many :records, :dependent => :destroy
 
+	validates :dataset_name, presence: true
+	validates :description, presence: true
+
   	has_attached_file :file
   	validates_attachment :file, presence: true,
     :content_type => { content_type: 'text/csv' }
