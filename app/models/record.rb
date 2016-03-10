@@ -8,7 +8,8 @@ class Record < ActiveRecord::Base
 	                :storage => :s3,
 	                :s3_credentials => Rails.root.join("config/aws.yml"),
 	                :bucket => 'keystone-development',
-	                :s3_permissions => :public_read,
+	                # :s3_permissions => :public_read,
+	                :s3_permissions => :private,
 	                :s3_protocol => "http",
 	                :convert_options => { :all => "-auto-orient" },
 	                :encode => 'utf8'
