@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :datasets do
     resources :record do
       member { get :download }
+      member { get :upload }
     end
   end
 
