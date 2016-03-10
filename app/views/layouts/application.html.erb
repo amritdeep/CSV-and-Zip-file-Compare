@@ -9,19 +9,35 @@
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
+<div class="container container-fluid">
 
-<div id="user_nav">
+<div class="row">
+<!--   <div classl="col-md-4">
+    <p class="notice bg-success"><%#= notice %></p>
+    <p class="alert bg-warning"><%#= alert %></p
+  </div> -->
+
   <% if user_signed_in? %>
-    Signed in as <%= current_user.email %>. Not you?
+
+  <div class="col-xs-12 col-md-8">
+      Welcome, <strong><%= current_user.email %>.</strong>
+  </div>
+  <div class="col-xs-6 col-md-4">
     <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-  <% else %>
-    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-  <% end %>
-</div>
+  </div>
+      
+    <% else %>
+    <div class="col-xs-12 col-md-8">
+      <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+      </div>
+    <% end %>  
+
+  </div>
+
 
 <%= yield %>
+
+</div>
 
 </body>
 </html>
