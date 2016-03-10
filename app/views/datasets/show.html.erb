@@ -27,7 +27,6 @@
 	      <% end %>
           <% if record.pdf_file_name.nil?  %>
             <td><%= button_to "Upload", edit_dataset_record_path(@dataset, record), method: :get %></td>
-            <!-- <td><%#= button_to "Upload", upload_dataset_record_path(@dataset, record) %></td> -->
           <% else %>
             <td><%=link_to record.pdf_file_name.split('-').last.gsub("_", " ").strip!, dataset_record_path(@dataset, record) %></td>
           <% end %>
