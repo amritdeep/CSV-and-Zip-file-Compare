@@ -5,6 +5,7 @@ require 'fileutils'
 
 class Dataset < ActiveRecord::Base
 	has_many :records, :dependent => :destroy
+	belongs_to :user
 
 	validates :dataset_name, presence: true
 	validates :description, presence: true
