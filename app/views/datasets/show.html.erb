@@ -11,7 +11,7 @@
     <% @dataset.records.first.data.keys.each do |key| %>
       <th><%= key.capitalize %></th>
     <% end %>
-      <th><%= "File" %></th>
+      <th colspan="2">File</th>
     </tr>
   </thead>
 	<tbody>
@@ -21,12 +21,21 @@
 	        <td><%= value %></td>
 	      <% end %>
           <% if record.pdf_file_name.nil?  %>
-            <td><%= button_to "Upload The File", edit_dataset_record_path(@dataset, record), method: :get, :class => 'btn btn-danger btn-sm btn-block' %></td>
+            <td>
+              <%= button_to "Upload The File", edit_dataset_record_path(@dataset, record), method: :get, :class => 'btn btn-danger btn-sm btn-block' %>
+            </td>
+            <td>
+              <p class='btn btn-danger btn-sm btn-block'>No File</p>
+            </td>
+
           <% else %>
             <!-- <td><%#= link_to record.pdf_file_name.split('-').last.gsub("_", " ").strip!, dataset_record_path(@dataset, record) %></td> -->
 
-            <td><%= link_to "Download The File", dataset_record_path(@dataset, record), :class => 'btn btn-success btn-sm btn-block' %>
-              <%#= button_to "Change File", dataset_record_path(@dataset, record), :class => 'btn btn-warning btn-xs' %>          
+            <td>
+              <%= link_to "Download The File", dataset_record_path(@dataset, record), :class => 'btn btn-success btn-sm btn-block' %>
+            </td>
+            <td>
+              <%= button_to "Change The File", edit_dataset_record_path(@dataset, record), method: :get, :class => 'btn btn-warning btn-sm btn-block' %>          
             </td>
 
           <% end %>
