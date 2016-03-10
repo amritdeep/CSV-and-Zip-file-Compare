@@ -10,11 +10,17 @@ class Dataset < ActiveRecord::Base
 	validates :dataset_name, presence: true
 	validates :description, presence: true
 
-  	has_attached_file :file
+  	has_attached_file :file,
+  		:url => "/attachments/:id/:style/:basename.:extension",
+        :path => ":rails_root/public/attachments/:id/:style/:basename.:extension"
+
   	validates_attachment :file, presence: true,
     :content_type => { content_type: 'text/csv' }
 
-  	has_attached_file :zipfile
+  	has_attached_file :zipfile,
+  	 	:url => "/attachments/:id/:style/:basename.:extension",
+        :path => ":rails_root/public/attachments/:id/:style/:basename.:extension"
+                   
   	validates_attachment :zipfile, presence: true,
     :content_type => { content_type: 'application/zip' }
 
