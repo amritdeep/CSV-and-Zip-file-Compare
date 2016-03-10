@@ -1,0 +1,10 @@
+<%= form_for [@dataset, @record] do |f| %>  
+  <div class="field">
+    <%= f.label :pdf, "Upload File" %><br>
+    <%= f.file_field :pdf %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Upload" %>
+  </div>
+<% end %>
