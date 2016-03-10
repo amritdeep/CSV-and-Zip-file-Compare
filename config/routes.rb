@@ -4,10 +4,7 @@ Rails.application.routes.draw do
 
   # resources :datasets
   resources :datasets do
-    resources :record do
-      member { get :download }
-      member { get :upload }
-    end
+    resources :record
   end
 
   root 'datasets#index'
