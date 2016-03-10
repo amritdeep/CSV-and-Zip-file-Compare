@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20160310144843) do
   create_table "datasets", force: :cascade do |t|
     t.string   "dataset_name"
     t.text     "description"
+    t.integer  "user_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
     t.string   "file_file_name"
@@ -27,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160310144843) do
     t.integer  "zipfile_file_size"
     t.datetime "zipfile_updated_at"
   end
+
+  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id"
 
   create_table "records", force: :cascade do |t|
     t.text     "data"

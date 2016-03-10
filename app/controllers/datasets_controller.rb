@@ -1,4 +1,5 @@
 class DatasetsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_dataset, only: [:show, :edit, :update, :destroy]
 
   # GET /datasets
@@ -10,12 +11,14 @@ class DatasetsController < ApplicationController
   # GET /datasets/1
   # GET /datasets/1.json
   def show
-    @dataset = Dataset.find(params[:id])
+    # @dataset = Dataset.find(params[:id])
+    @dataset = current_user.datasets.find(params[:id])
   end
 
   # GET /datasets/new
   def new
     @dataset = Dataset.new
+    # @dataset = current_user.datasets.new
   end
 
   # GET /datasets/1/edit
@@ -25,7 +28,8 @@ class DatasetsController < ApplicationController
   # POST /datasets
   # POST /datasets.json
   def create
-    @dataset = Dataset.new(dataset_params)
+    # @dataset = Dataset.new(dataset_params)
+    @dataset = current_user.datasets.new(dataset_params)
 
     respond_to do |format|
       if @dataset.save
@@ -65,7 +69,8 @@ class DatasetsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_dataset
-      @dataset = Dataset.find(params[:id])
+      # @dataset = Dataset.find(params[:id])
+      @dataset = current_user.datasets.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
