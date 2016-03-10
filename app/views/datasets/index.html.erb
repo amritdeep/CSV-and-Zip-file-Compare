@@ -1,14 +1,14 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" class="bg-info"><%= notice %></p>
 
 <% if @datasets.present? %>
 
-<h1>Listing Batch</h1>
+<h2>Listing Batch</h2>
 
-<table>
+<table class="table table-bordered table-hover table-condensed">
   <thead>
-    <tr>
+    <tr class="info control-label">
       <th>Batch Name</th>
-      <th colspan="3"></th>
+      <th colspan="2"> Action </th>
     </tr>
   </thead>
 
@@ -16,9 +16,9 @@
     <% @datasets.each do |dataset| %>
       <tr>
         <td><%= dataset.batch %></td>
-        <td><%= link_to 'Show', dataset %></td>
-        <td><%= link_to 'Edit', edit_dataset_path(dataset) %></td>
-        <td><%= link_to 'Destroy', dataset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', dataset, :class => 'btn btn-success btn-sm btn-block' %></td>
+        <!-- <td><%#= link_to 'Edit', edit_dataset_path(dataset) %></td> -->
+        <td><%= link_to 'Destroy', dataset, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-sm btn-block' %></td>
       </tr>
     <% end %>
   </tbody>
