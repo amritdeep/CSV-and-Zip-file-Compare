@@ -75,6 +75,6 @@ class DatasetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dataset_params
-      params.require(:dataset).permit(:dataset_name, :description, :file, :zipfile)
+      params.require(:dataset).permit(:dataset_name, :file, :zipfile)
     end
 end

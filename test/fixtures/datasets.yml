@@ -2,8 +2,6 @@
 
 one:
   dataset_name: MyString
-  description: MyText
 
 two:
   dataset_name: MyString
-  description: MyText

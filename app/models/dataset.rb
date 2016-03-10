@@ -8,8 +8,8 @@ class Dataset < ActiveRecord::Base
 	belongs_to :user
 
 	validates :dataset_name, presence: true
-	validates :description, presence: true
 
+	## CSV File
   	has_attached_file :file,
   		:url => "/attachments/:id/:style/:basename.:extension",
         :path => ":rails_root/public/attachments/:id/:style/:basename.:extension"
@@ -17,6 +17,7 @@ class Dataset < ActiveRecord::Base
   	validates_attachment :file, presence: true,
     :content_type => { content_type: 'text/csv' }
 
+    ## Zip File
   	has_attached_file :zipfile,
   	 	:url => "/attachments/:id/:style/:basename.:extension",
         :path => ":rails_root/public/attachments/:id/:style/:basename.:extension"
