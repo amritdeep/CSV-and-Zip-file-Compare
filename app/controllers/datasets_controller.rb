@@ -1,6 +1,8 @@
 class DatasetsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_dataset, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token
+  # respond_to :html, :js
 
   # GET /datasets
   # GET /datasets.json
@@ -28,18 +30,28 @@ class DatasetsController < ApplicationController
   # POST /datasets
   # POST /datasets.json
   def create
+    sleep 1
     # @dataset = Dataset.new(dataset_params)
     @dataset = current_user.datasets.new(dataset_params)
-
-    respond_to do |format|
-      if @dataset.save
-        format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
-        format.json { render :show, status: :created, location: @dataset }
-      else
-        format.html { render :new }
-        format.json { render json: @dataset.errors, status: :unprocessable_entity }
-      end
+  
+    if @dataset.save
+      @dataset
+      puts @dataset.inspect
+    else
+      @dataset.errors.messages
+      puts @dataset.inspect
+      
     end
+
+    # respond_to do |format|
+    #   if @dataset.save
+    #     format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
+    #     format.json { render :show, status: :created, location: @dataset }
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @dataset.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /datasets/1

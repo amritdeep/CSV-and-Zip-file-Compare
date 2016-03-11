@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160310144843) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "datasets", force: :cascade do |t|
     t.string   "batch"
     t.integer  "user_id"
@@ -28,7 +31,7 @@ ActiveRecord::Schema.define(version: 20160310144843) do
     t.datetime "zipfile_updated_at"
   end
 
-  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id"
+  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id", using: :btree
 
   create_table "records", force: :cascade do |t|
     t.text     "data"
@@ -41,7 +44,7 @@ ActiveRecord::Schema.define(version: 20160310144843) do
     t.datetime "pdf_updated_at"
   end
 
-  add_index "records", ["dataset_id"], name: "index_records_on_dataset_id"
+  add_index "records", ["dataset_id"], name: "index_records_on_dataset_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -58,7 +61,7 @@ ActiveRecord::Schema.define(version: 20160310144843) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
