@@ -3,8 +3,8 @@ default: &default
   encoding: utf8
   pool: 5
   host: localhost
-  username: ad
-  password: ad
+  username: jgraft
+  password: my1daddy
   port: 5432
 
 development:

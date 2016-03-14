@@ -1,0 +1,28 @@
+test:
+  script:
+  - apt-get update -qy
+  - apt-get install -y nodejs
+  - bundle install --path /cache
+  - cp config/database.example.yml config/database.yml
+  - cp config/secrets.example.yml config/secrets.yml
+  - cp config/local_env.example.yml config/local_env.yml
+  - bundle exec rake db:create RAILS_ENV=test
+  - bundle exec rake db:schema:load RAILS_ENV=test
+  - bundle exec rspec spec
+  tags:
+  - tester
+
+# staging:
+#   type: deploy
+#   script:
+#   - gem install airbrake  
+#   - gem install capistrano
+#   - gem install capistrano-rvm
+#   - gem install capistrano-rails
+#   - gem install capistrano-bundler
+#   - gem install whenever
+#   - cap staging deploy
+#   tags:
+#   - deployer
+#   only:
+#   - staging

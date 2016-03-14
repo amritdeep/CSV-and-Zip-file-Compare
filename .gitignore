@@ -34,3 +34,10 @@ bower.json
 # Ignore pow environment settings
 .powenv
 
+
+
+/config/database.yml
+/config/secrets.yml
+/config/local_env.yml
+
+/coverage

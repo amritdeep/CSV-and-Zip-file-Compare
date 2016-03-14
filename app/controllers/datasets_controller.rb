@@ -1,19 +1,14 @@
 class DatasetsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_dataset, only: [:show, :edit, :update, :destroy]
+  before_action :set_dataset, only: [:edit, :update, :destroy]
   skip_before_action :verify_authenticity_token
-  # respond_to :html, :js
 
-  # GET /datasets
-  # GET /datasets.json
   def index
     @datasets = Dataset.all
   end
 
-  # GET /datasets/1
-  # GET /datasets/1.json
+
   def show
-    # @dataset = Dataset.find(params[:id])
     @dataset = current_user.datasets.find(params[:id])
   end
 
@@ -27,31 +22,30 @@ class DatasetsController < ApplicationController
   def edit
   end
 
-  # POST /datasets
-  # POST /datasets.json
   def create
-    sleep 1
+    # sleep 1
     # @dataset = Dataset.new(dataset_params)
     @dataset = current_user.datasets.new(dataset_params)
   
-    if @dataset.save
-      @dataset
-      puts @dataset.inspect
-    else
-      @dataset.errors.messages
-      puts @dataset.inspect
-      
-    end
-
-    # respond_to do |format|
-    #   if @dataset.save
-    #     format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
-    #     format.json { render :show, status: :created, location: @dataset }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @dataset.errors, status: :unprocessable_entity }
-    #   end
+    # if @dataset.save
+    #   @dataset
+    #   puts @dataset.inspect
+    # else
+    #  @dataset.errors.messages
+    #   puts @dataset.inspect
+       
     # end
+
+    respond_to do |format|
+      if @dataset.save
+        format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
+        format.json { render :show, status: :created, location: @dataset }
+        format.js   { render :show, status: :created, location: @dataset }
+      else
+        format.html { render :new }
+        format.json { render json: @dataset.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # PATCH/PUT /datasets/1
@@ -68,8 +62,6 @@ class DatasetsController < ApplicationController
     end
   end
 
-  # DELETE /datasets/1
-  # DELETE /datasets/1.json
   def destroy
     @dataset.destroy
     respond_to do |format|
