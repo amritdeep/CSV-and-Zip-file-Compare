@@ -13,6 +13,7 @@ gem 'aws-sdk', '< 2.0'
 gem 'rubyzip'
 gem 'zip-zip' 
 gem 'devise', '3.4.1'
+gem 'smarter_csv'
 
 group :development do
 	gem 'better_errors'
