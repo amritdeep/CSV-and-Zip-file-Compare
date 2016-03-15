@@ -27,43 +27,38 @@ class Batch < ActiveRecord::Base
     	"tmp/keystone/"
     end
 
+    def extract_dir
+      	folder_name = zipfile_file_name.split('.').first
+    	"#{working_dir}#{folder_name}"  	
+    end
+
 	def parse_csv_file
 		tempfile = csvfile.queued_for_write[:original].read
-		File.open("#{working_dir}tempfile.csv", 'w') {|f| f.write(tempfile) }
+		cp_csv_file = csvfile.instance.csvfile_file_name
+		File.open("#{working_dir}#{cp_csv_file}", 'w') {|f| f.write(tempfile) }
 		data = SmarterCSV.process("#{working_dir}tempfile.csv")
 		# data.each { |hash| self.records.create(name: hash[:name], pid: hash[:pid])}
 		data.each { |hash| self.records.build(name: hash[:name], pid: hash[:pid])}
-		# my_csv = CSV.new(tempfile, :headers => true,
-		#                            :header_converters => :symbol,
-		#                            :converters => :all)
-		# my_array_of_hashes = my_csv.to_a.map {|row| row.to_hash}
-
-		# my_array_of_hashes.each do |hash|
-		#   record = self.records.build
-		#   record.data = hash
-		#   record.save
-		# end
 	end
 
 	def parse_pdf
-		binding.pry
 		zipfile_file_name = zipfile.instance.zipfile_file_name
-		copy_file =  zipfile.copy_to_local_file(:original, "tmp/#{zipfile_file_name}")
-		local_zip_file = "tmp/#{zipfile_file_name}"
-		folder_name = zipfile_file_name.split('.').first
-		unzip_file(local_zip_file, folder_name)
-		upload_to_s3(folder_name)
-		remove_unwanted_files(local_zip_file, folder_name)
+		copy_zip_file =  zipfile.copy_to_local_file(:original, "#{working_dir}#{zipfile_file_name}")
+		local_zip_file = "#{working_dir}#{zipfile_file_name}"
+		# folder_name = zipfile_file_name.split('.').first
+		# binding.pry
+		unzip_file(local_zip_file)
+		# upload_to_s3(folder_name)
+		# remove_unwanted_files(local_zip_file, folder_name)
+		remove_folder
 	end
 
-	## Unzip the file
-	def unzip_file(file_name, folder)
+	## 
+	# Unzip the file
+	# @param File name and Folder name
+	def unzip_file(file_name)
 		Zip::File.open(file_name) do |zip|
-			zip.each do |entry|
-				puts "Extracting #{entry.name}"
-				zip_file_path = "tmp/#{folder}/#{entry.name}"
-				entry.extract(zip_file_path) { true }
-			end
+			zip.each { |entry| entry.extract("#{extract_dir}/#{entry.name}") { true } }
 		end		  	
 	end
 
@@ -89,9 +84,10 @@ class Batch < ActiveRecord::Base
 	end
 
 	## Removing File from Tmp Folder
-	def remove_unwanted_files(files, folder)
-		FileUtils.rm_rf("#{files}")
-		FileUtils.rm_rf(Dir.glob("tmp/#{folder}"))	  	
+	def remove_folder
+		# FileUtils.rm_rf("#{files}")
+		# FileUtils.rm_rf(Dir.glob("tmp/#{folder}"))
+		FileUtils.rm_rf("#{working_dir}")	  	
 	end	  
 
 end
