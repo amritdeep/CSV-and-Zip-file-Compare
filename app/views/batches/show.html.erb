@@ -8,19 +8,18 @@
 <table class="table table-bordered table-hover table-condensed">
   <thead>
     <tr class="info control-label">
-    <% @batch.records.first.data.keys.each do |key| %>
-      <th><%= key.capitalize %></th>
-    <% end %>
+      <th>PID</th>
+      <th>Name</th>
       <th colspan="2">File</th>
     </tr>
   </thead>
 	<tbody>
 	  <% @batch.records.each do |record| %>
 	    <tr>
-	      <% record.data.values.each do |value| %>
-	        <td><%= value %></td>
-	      <% end %>
-          <% if record.pdf_file_name.nil?  %>
+        <td><%= record.pid %></td>
+        <td><%= record.name %></td>
+
+        <% if record.pdf_file_name.nil?  %>
             <td>
               <%= button_to "Upload The File", edit_batch_record_path(@batch, record), method: :get, :class => 'btn btn-danger btn-sm btn-block' %>
             </td>
@@ -28,17 +27,15 @@
               <p class='btn btn-danger btn-sm btn-block'>No File</p>
             </td>
 
-          <% else %>
-            <!-- <td><%#= link_to record.pdf_file_name.split('-').last.gsub("_", " ").strip!, batch_record_path(@batch, record) %></td> -->
-
+        <% else %>
             <td>
               <%= link_to "Download The File", batch_record_path(@batch, record), :class => 'btn btn-success btn-sm btn-block' %>
             </td>
             <td>
               <%= button_to "Change The File", edit_batch_record_path(@batch, record), method: :get, :class => 'btn btn-warning btn-sm btn-block' %>          
             </td>
+        <% end %>
 
-          <% end %>
       </tr> 
 
 	  <% end %>
@@ -47,5 +44,4 @@
 </table>
 
 
-<%#= link_to 'Edit', edit_batch_path(@batch) %>
 <%= link_to 'Back', batches_path, :class => 'btn btn-info', :role => 'button' %>
