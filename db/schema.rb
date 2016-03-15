@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315200308) do
+ActiveRecord::Schema.define(version: 20160315201717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20160315200308) do
   add_index "batches", ["user_id"], name: "index_batches_on_user_id", using: :btree
 
   create_table "records", force: :cascade do |t|
-    t.text     "data"
+    t.text     "name"
     t.integer  "batch_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160315200308) do
     t.string   "pdf_content_type"
     t.integer  "pdf_file_size"
     t.datetime "pdf_updated_at"
+    t.string   "pid"
   end
 
   add_index "records", ["batch_id"], name: "index_records_on_batch_id", using: :btree

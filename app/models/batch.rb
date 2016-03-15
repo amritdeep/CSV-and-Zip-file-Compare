@@ -21,8 +21,7 @@ class Batch < ActiveRecord::Base
     :content_type => { content_type: 'application/zip' }
 
     before_save :parse_csv_file
-    # after_save :parse_csv_file
-    # after_save :parse_pdf
+    after_save :parse_pdf
 
     def working_dir
     	"tmp/keystone/"
@@ -33,7 +32,7 @@ class Batch < ActiveRecord::Base
 		File.open("#{working_dir}tempfile.csv", 'w') {|f| f.write(tempfile) }
 		data = SmarterCSV.process("#{working_dir}tempfile.csv")
 		# data.each { |hash| self.records.create(name: hash[:name], pid: hash[:pid])}
-		data.each { |hash| self.records.build(data: hash[:name], pid: hash[:pid])}
+		data.each { |hash| self.records.build(name: hash[:name], pid: hash[:pid])}
 		# my_csv = CSV.new(tempfile, :headers => true,
 		#                            :header_converters => :symbol,
 		#                            :converters => :all)
@@ -47,6 +46,7 @@ class Batch < ActiveRecord::Base
 	end
 
 	def parse_pdf
+		binding.pry
 		zipfile_file_name = zipfile.instance.zipfile_file_name
 		copy_file =  zipfile.copy_to_local_file(:original, "tmp/#{zipfile_file_name}")
 		local_zip_file = "tmp/#{zipfile_file_name}"

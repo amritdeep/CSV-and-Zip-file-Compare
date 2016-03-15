@@ -1,6 +1,6 @@
 class Record < ActiveRecord::Base
   belongs_to :dataset
-  serialize :data, Hash
+  # serialize :data, Hash
 
   	has_attached_file :pdf, 
   					  default_url: ":attachment/:id/:style.:extension",
