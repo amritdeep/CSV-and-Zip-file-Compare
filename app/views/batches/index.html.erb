@@ -13,12 +13,12 @@
   </thead>
 
   <tbody>
-    <% @batchs.each do |dataset| %>
+    <% @batchs.each do |batch| %>
       <tr>
-        <td><%= dataset.batch %></td>
-        <td><%= link_to 'Show', dataset, :class => 'btn btn-success btn-sm btn-block' %></td>
-        <!-- <td><%#= link_to 'Edit', edit_dataset_path(dataset) %></td> -->
-        <td><%= link_to 'Destroy', dataset, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-sm btn-block' %></td>
+        <td><%= batch.batch %></td>
+        <td><%= link_to 'Show', batch, :class => 'btn btn-success btn-sm btn-block' %></td>
+        <!-- <td><%#= link_to 'Edit', edit_batch_path(batch) %></td> -->
+        <td><%= link_to 'Destroy', batch, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger btn-sm btn-block' %></td>
       </tr>
     <% end %>
   </tbody>
