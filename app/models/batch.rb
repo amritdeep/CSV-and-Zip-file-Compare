@@ -2,7 +2,7 @@ class Batch < ActiveRecord::Base
 	has_many :records, :dependent => :destroy
 	belongs_to :user
 
-	validates :batch, presence: true
+	validates :name, presence: true
 
 	## CSV File
   	has_attached_file :file,

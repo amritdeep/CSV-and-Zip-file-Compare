@@ -24,18 +24,8 @@ class BatchesController < ApplicationController
   end
 
   def create
-    # sleep 1
     # @batch = Dataset.new(dataset_params)
     @batch = current_user.batches.new(batch_params)
-  
-    # if @batch.save
-    #   @batch
-    #   puts @batch.inspect
-    # else
-    #  @batch.errors.messages
-    #   puts @batch.inspect
-       
-    # end
 
     respond_to do |format|
       if @batch.save
@@ -80,6 +70,6 @@ class BatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def batch_params
-      params.require(:batch).permit(:batch, :file, :zipfile)
+      params.require(:batch).permit(:name, :file, :zipfile)
     end
 end
