@@ -1,11 +1,11 @@
-<%= form_for @dataset do |f| %>
-<%#= form_for(@dataset) do |f| %>
-  <% if @dataset.errors.any? %>
+<%= form_for @batch do |f| %>
+<%#= form_for(@batch) do |f| %>
+  <% if @batch.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@dataset.errors.count, "error") %> prohibited this dataset from being saved:</h2>
+      <h2><%= pluralize(@batch.errors.count, "error") %> prohibited this dataset from being saved:</h2>
 
       <ul>
-      <% @dataset.errors.full_messages.each do |message| %>
+      <% @batch.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>

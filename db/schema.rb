@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160310144843) do
+ActiveRecord::Schema.define(version: 20160315155057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "datasets", force: :cascade do |t|
+  create_table "batches", force: :cascade do |t|
     t.string   "batch"
     t.integer  "user_id"
     t.datetime "created_at",           null: false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(version: 20160310144843) do
     t.datetime "zipfile_updated_at"
   end
 
-  add_index "datasets", ["user_id"], name: "index_datasets_on_user_id", using: :btree
+  add_index "batches", ["user_id"], name: "index_batches_on_user_id", using: :btree
 
   create_table "records", force: :cascade do |t|
     t.text     "data"

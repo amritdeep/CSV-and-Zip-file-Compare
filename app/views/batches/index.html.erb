@@ -1,6 +1,6 @@
 <p id="notice" class="bg-info"><%= notice %></p>
 
-<% if @datasets.present? %>
+<% if @batchs.present? %>
 
 <h2>Listing Batch</h2>
 
@@ -13,7 +13,7 @@
   </thead>
 
   <tbody>
-    <% @datasets.each do |dataset| %>
+    <% @batchs.each do |dataset| %>
       <tr>
         <td><%= dataset.batch %></td>
         <td><%= link_to 'Show', dataset, :class => 'btn btn-success btn-sm btn-block' %></td>
@@ -28,4 +28,4 @@
 
 <% end %>
 
-<%= link_to 'Run Batch', new_dataset_path, :class => 'btn btn-default', :role => 'button' %>
+<%= link_to 'Run Batch', new_batch_path, :class => 'btn btn-default', :role => 'button' %>

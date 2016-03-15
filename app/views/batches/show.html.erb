@@ -2,40 +2,40 @@
 
 <p>
   <strong>Batch :</strong>
-  <%= @dataset.batch %>
+  <%= @batch.batch %>
 </p>
 
 <table class="table table-bordered table-hover table-condensed">
   <thead>
     <tr class="info control-label">
-    <% @dataset.records.first.data.keys.each do |key| %>
+    <% @batch.records.first.data.keys.each do |key| %>
       <th><%= key.capitalize %></th>
     <% end %>
       <th colspan="2">File</th>
     </tr>
   </thead>
 	<tbody>
-	  <% @dataset.records.each do |record| %>
+	  <% @batch.records.each do |record| %>
 	    <tr>
 	      <% record.data.values.each do |value| %>
 	        <td><%= value %></td>
 	      <% end %>
           <% if record.pdf_file_name.nil?  %>
             <td>
-              <%= button_to "Upload The File", edit_dataset_record_path(@dataset, record), method: :get, :class => 'btn btn-danger btn-sm btn-block' %>
+              <%= button_to "Upload The File", edit_dataset_record_path(@batch, record), method: :get, :class => 'btn btn-danger btn-sm btn-block' %>
             </td>
             <td>
               <p class='btn btn-danger btn-sm btn-block'>No File</p>
             </td>
 
           <% else %>
-            <!-- <td><%#= link_to record.pdf_file_name.split('-').last.gsub("_", " ").strip!, dataset_record_path(@dataset, record) %></td> -->
+            <!-- <td><%#= link_to record.pdf_file_name.split('-').last.gsub("_", " ").strip!, dataset_record_path(@batch, record) %></td> -->
 
             <td>
-              <%= link_to "Download The File", dataset_record_path(@dataset, record), :class => 'btn btn-success btn-sm btn-block' %>
+              <%= link_to "Download The File", dataset_record_path(@batch, record), :class => 'btn btn-success btn-sm btn-block' %>
             </td>
             <td>
-              <%= button_to "Change The File", edit_dataset_record_path(@dataset, record), method: :get, :class => 'btn btn-warning btn-sm btn-block' %>          
+              <%= button_to "Change The File", edit_dataset_record_path(@batch, record), method: :get, :class => 'btn btn-warning btn-sm btn-block' %>          
             </td>
 
           <% end %>
@@ -47,5 +47,5 @@
 </table>
 
 
-<%#= link_to 'Edit', edit_dataset_path(@dataset) %>
+<%#= link_to 'Edit', edit_dataset_path(@batch) %>
 <%= link_to 'Back', datasets_path, :class => 'btn btn-info', :role => 'button' %>

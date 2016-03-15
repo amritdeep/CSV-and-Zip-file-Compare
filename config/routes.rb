@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   # get 'record/show'
 
   # resources :datasets
-  resources :datasets do
+  resources :batches do
     resources :record
   end
 
-  root 'datasets#index'
+  root 'batches#index'
   # root to: "home#index"
 
   # The priority is based upon order of creation: first created -> highest priority.
