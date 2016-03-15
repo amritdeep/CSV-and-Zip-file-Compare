@@ -5,11 +5,11 @@ class Batch < ActiveRecord::Base
 	validates :name, presence: true
 
 	## CSV File
-  	has_attached_file :file,
+  	has_attached_file :csvfile,
   		:url => "/attachments/:id/:style/:basename.:extension",
         :path => ":rails_root/public/attachments/:id/:style/:basename.:extension"
 
-  	validates_attachment :file, presence: true,
+  	validates_attachment :csvfile, presence: true,
     :content_type => { content_type: 'text/csv' }
 
     ## Zip File
@@ -24,7 +24,7 @@ class Batch < ActiveRecord::Base
     after_save :parse_pdf
 
 	  def parse_file
-	    tempfile = file.queued_for_write[:original].read
+	    tempfile = csvfile.queued_for_write[:original].read
 	    my_csv = CSV.new(tempfile, :headers => true,
 	                               :header_converters => :symbol,
 	                               :converters => :all)

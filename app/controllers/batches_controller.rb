@@ -70,6 +70,6 @@ class BatchesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def batch_params
-      params.require(:batch).permit(:name, :file, :zipfile)
+      params.require(:batch).permit(:name, :csvfile, :zipfile)
     end
 end
