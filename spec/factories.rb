@@ -19,7 +19,6 @@ FactoryGirl.define do
 		email "user@keystone.com"
 		password "password"
 		password_confirmation "password"
-
 	end
 	
 end	
