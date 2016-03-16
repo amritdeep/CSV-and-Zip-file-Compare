@@ -56,7 +56,6 @@ class Batch < ActiveRecord::Base
 		end		  	
 	end
 
-
 	## Getting the Pdf files from Local Directory
 	def get_pdf_files
 		folder = @folder_name.gsub("_", " ")
