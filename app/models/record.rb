@@ -1,6 +1,10 @@
 class Record < ActiveRecord::Base
   belongs_to :batch
 
+	validates :name, presence: true
+	validates :pid, presence: true
+
+
 	has_attached_file :pdf, 
 					  default_url: ":attachment/:id/:style.:extension",
 					:s3_domain_url => "******.s3.amazonaws.com",
