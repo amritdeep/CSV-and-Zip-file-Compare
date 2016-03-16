@@ -35,9 +35,10 @@ bower.json
 .powenv
 
 
-
+/db/schema.rb
 /config/database.yml
 /config/secrets.yml
+/config/aws.yml
 /config/local_env.yml
 
 /coverage
