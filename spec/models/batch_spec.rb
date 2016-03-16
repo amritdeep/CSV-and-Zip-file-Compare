@@ -13,12 +13,9 @@ RSpec.describe Batch, type: :model do
 	# Validation
 	it { should validate_presence_of(:name) }
 
-	
-	# it "should be able to create records from the csv" do
-	# 	# batch
-	# 	binding.pry
-	# 	# expect(batch.records.count).to eq(3)
-	# 	# expect(batch.valid?).to eq(true)
-	# end
+	it "should be able to create records from the csv" do
+		expect(batch.records.count).to eq(3)
+		expect(batch.valid?).to eq(true)
+	end
 
 end
