@@ -14,7 +14,7 @@
     </tr>
   </thead>
 	<tbody>
-	  <% @batch.records.each do |record| %>
+	  <% @batch.records.order(:id).each do |record| %>
 	    <tr>
         <td><%= record.pid %></td>
         <td><%= record.name %></td>
