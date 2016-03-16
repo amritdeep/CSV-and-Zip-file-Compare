@@ -1,5 +1,5 @@
 class Record < ActiveRecord::Base
-  belongs_to :dataset
+  belongs_to :batch
 
 	has_attached_file :pdf, 
 					  default_url: ":attachment/:id/:style.:extension",
