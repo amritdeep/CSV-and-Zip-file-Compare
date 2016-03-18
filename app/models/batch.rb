@@ -21,7 +21,8 @@ class Batch < ActiveRecord::Base
     :content_type => { content_type: 'application/zip' }
 
     # before_save :parse_csv_file
-    after_save :parse_csv_file, :parse_pdf, :get_pdf_files, :remove_folder
+    # after_save :parse_csv_file, :parse_pdf, :get_pdf_files, :remove_folder
+    after_save :parse_csv_file, :parse_pdf_file, :get_pdf_files, :remove_folder
 
     def working_dir
     	"tmp/keystone/"
@@ -42,24 +43,32 @@ class Batch < ActiveRecord::Base
 		data.each { |hash| self.records.build(name: hash[:name], pid: hash[:pid])}
 	end
 
-	def parse_pdf
-		# binding.pry
-		# @zipfile_file_name = zipfile.instance.zipfile_file_name
-		# copy_zip_file =  zipfile.copy_to_local_file(:original, "#{working_dir}#{@zipfile_file_name}")
-		# local_zip_file = "#{working_dir}#{@zipfile_file_name}"
-		# unzip_file(local_zip_file)
-		local_zip_file = File.open(zipfile.path)
-		unzip_file(local_zip_file)
+	# def parse_pdf
+	# 	# binding.pry
+	# 	# @zipfile_file_name = zipfile.instance.zipfile_file_name
+	# 	# copy_zip_file =  zipfile.copy_to_local_file(:original, "#{working_dir}#{@zipfile_file_name}")
+	# 	# local_zip_file = "#{working_dir}#{@zipfile_file_name}"
+	# 	# unzip_file(local_zip_file)
+	# 	local_zip_file = File.open(zipfile.path)
+	# 	unzip_file(local_zip_file)
+	# end
+
+	def parse_pdf_file
+		file_name = File.open(zipfile.path)
+		Zip::File.open(file_name) do |zip|
+			zip.each { |entry| entry.extract("#{extract_dir}/#{entry.name}") { true } }
+		end			
 	end
+
 
 	## 
 	# Unzip the file
 	# @param File name and Folder name
-	def unzip_file(file_name)
-		Zip::File.open(file_name) do |zip|
-			zip.each { |entry| entry.extract("#{extract_dir}/#{entry.name}") { true } }
-		end		  	
-	end
+	# def unzip_file(file_name)
+	# 	Zip::File.open(file_name) do |zip|
+	# 		zip.each { |entry| entry.extract("#{extract_dir}/#{entry.name}") { true } }
+	# 	end		  	
+	# end
 
 	## Getting the Pdf files from Local Directory
 	def get_pdf_files
@@ -86,8 +95,8 @@ class Batch < ActiveRecord::Base
 	## Removing File from Tmp Folder
 	def remove_folder  	
 		FileUtils.rm_rf("#{extract_dir}")
-		FileUtils.rm_rf("#{working_dir}#{@cp_csv_file}")
-		FileUtils.rm_rf("#{working_dir}#{@zipfile_file_name}")	  	
+		# FileUtils.rm_rf("#{working_dir}#{@cp_csv_file}")
+		# FileUtils.rm_rf("#{working_dir}#{@zipfile_file_name}")	  	
 	end	  
 
 end
