@@ -5,13 +5,13 @@ FactoryGirl.define do
 	factory :batch do
 		user { |u| u.association(:user) }
 		name "Batch 1"
-		# zipfile File.open('spec/support/archive.zip')
+		# zipfile File.open('spec/support/archive_new.zip')
 		# csvfile File.open('spec/support/example11.csv')
 
-		zipfile { fixture_file_upload('spec/support/archive.zip', 'application/zip')}
+		zipfile { fixture_file_upload('spec/support/archive_new.zip', 'application/zip')}
 		csvfile { fixture_file_upload('spec/support/example.csv', 'text/csv')}
 
-		# zipfile { fixture_file_upload(Rails.root.join('spec', 'support', 'archive.zip'), 'application/zip')}
+		# zipfile { fixture_file_upload(Rails.root.join('spec', 'support', 'archive_new.zip'), 'application/zip')}
 		# csvfile { fixture_file_upload(Rails.root.join('spec', 'support', 'example.csv'), 'text/csv')}
 	end
 
