@@ -34,8 +34,6 @@ bower.json
 # Ignore pow environment settings
 .powenv
 
-
-/db/schema.rb
 /config/database.yml
 /config/secrets.yml
 /config/aws.yml
