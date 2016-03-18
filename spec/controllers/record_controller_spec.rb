@@ -16,7 +16,24 @@ RSpec.describe RecordController, :type => :controller do
 			expect(response).to be_success
 		end
 
+		it "should able to upload file with pdf file" do
+			batch = create(:batch, user_id: user.id)
+			patch :update, format: :html, id: batch.records.first.id, batch_id: batch.id, record: { pdf: fixture_file_upload('example.pdf', 'application/pdf')}
 
+			expect(response).to redirect_to(batch_path(batch.id))
+		end
+
+		it "should not able to upload file without pdf file" do
+			batch = create(:batch, user_id: user.id)
+			patch :update, format: :html, id: batch.records.first.id, batch_id: batch.id, record: { pdf: fixture_file_upload('example.csv', 'text/csv')}
+			expect(response).to render_template :edit
+		end
+
+		it "should able to edit record" do
+			batch = create(:batch, user_id: user.id)
+			get :edit, id: batch.records.first.id, batch_id: batch.id
+			expect(response).to be_success
+		end
 
 	end
 end

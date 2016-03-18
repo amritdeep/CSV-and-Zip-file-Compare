@@ -19,7 +19,8 @@ class RecordController < ApplicationController
   	@record.pdf = params[:record][:pdf]
 
   	respond_to do |format|
-  		if @record.save!
+      # if @record.save!
+  		if @record.save
 	        format.html { redirect_to @batch, notice: 'Record was successfully updated.' }
 	        format.json { render :show, status: :ok, location: @batch }	
       	else
