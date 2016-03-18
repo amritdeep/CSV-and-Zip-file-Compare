@@ -6,7 +6,9 @@ lock '3.4.0'
 
 
 set :application, 'keystone'
+# set :repo_url, 'https://git.cratebind.com/cratebind/keystone.git'
 set :repo_url, 'git@git.cratebind.com:cratebind/keystone.git'
+set :branch, 'master'
 set :deploy_to, '/home/keystone'
 set :rvm_type, :user 
 set :bundle_binstubs, -> { '/home/keystone/shared/bin' }
