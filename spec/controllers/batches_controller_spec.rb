@@ -61,7 +61,7 @@ RSpec.describe BatchesController, :type => :controller do
 
 			expect(batch.user_id).to eql(user.id)
 			expect(response).to render_template(:new)
-		end		
+		end
 
 	end
 

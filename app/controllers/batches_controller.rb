@@ -41,17 +41,17 @@ class BatchesController < ApplicationController
 
   # PATCH/PUT /datasets/1
   # PATCH/PUT /datasets/1.json
-  def update
-    respond_to do |format|
-      if @batch.update(batch_params)
-        format.html { redirect_to @batch, notice: 'Batch was successfully updated.' }
-        format.json { render :show, status: :ok, location: @batch }
-      else
-        format.html { render :edit }
-        format.json { render json: @batch.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  # def update
+  #   respond_to do |format|
+  #     if @batch.update(batch_params)
+  #       format.html { redirect_to @batch, notice: 'Batch was successfully updated.' }
+  #       format.json { render :show, status: :ok, location: @batch }
+  #     else
+  #       format.html { render :edit }
+  #       format.json { render json: @batch.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
   def destroy
     @batch.destroy
