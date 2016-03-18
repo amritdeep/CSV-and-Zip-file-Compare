@@ -49,11 +49,19 @@ RSpec.describe BatchesController, :type => :controller do
 			batch = create(:batch, user_id: user.id)
 			post :create, format: :html, batch: { name: batch.name, csvfile: fixture_file_upload('example.csv', 'text/csv'), zipfile: fixture_file_upload('archive.zip', 'application/zip')}
 
-			expect(user.id).to eql(user.id)
+			expect(batch.user_id).to eql(user.id)
 			expect(user.batches.count).to eql(2)
 			expect(user.batches.first.csvfile_file_name).to eql("example.csv")
 			expect(user.batches.first.zipfile_file_name).to eql("archive.zip")
 		end
+
+		it "should not run batch without data" do
+			batch = create(:batch, user_id: user.id)
+			post :create, format: :html, batch: { name: '', csvfile: fixture_file_upload('example.csv', 'text/csv'), zipfile: fixture_file_upload('archive.zip', 'application/zip')}
+
+			expect(batch.user_id).to eql(user.id)
+			expect(response).to render_template(:new)
+		end		
 
 	end
 
