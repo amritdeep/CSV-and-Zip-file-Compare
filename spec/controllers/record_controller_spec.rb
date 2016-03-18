@@ -1,17 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe RecordController, :type => :controller do
-	describe "anonymous user" do
-	    before :each do
-	      # This simulates an anonymous user
-	      login_with nil
-	    end
-
-	    it "should be redirected to signin" do
-	      get :index
-	      expect( response ).to redirect_to( new_user_session_path )
-	    end
-	end
 
 	describe "Authenticate User" do
 
@@ -20,6 +9,14 @@ RSpec.describe RecordController, :type => :controller do
 		before :each do
 			login_with user
 		end
-		
+
+		it "should able to show data" do
+			batch = create(:batch, user_id: user.id)
+			get :show, id: batch.records.first.id, batch_id: batch.id
+			expect(response).to be_success
+		end
+
+
+
 	end
 end
