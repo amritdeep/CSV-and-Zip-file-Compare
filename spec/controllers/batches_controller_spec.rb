@@ -63,6 +63,13 @@ RSpec.describe BatchesController, :type => :controller do
 			expect(response).to render_template(:new)
 		end
 
+		it "should able to delete batch" do
+			batch = create(:batch, user_id: user.id)
+			delete :destroy, id: batch.id 
+
+			expect(response).to redirect_to(batches_url)
+		end
+
 	end
 
 

@@ -56,7 +56,7 @@ class BatchesController < ApplicationController
   def destroy
     @batch.destroy
     respond_to do |format|
-      format.html { redirect_to datasets_url, notice: 'Batch was successfully destroyed.' }
+      format.html { redirect_to batches_url, notice: 'Batch was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
