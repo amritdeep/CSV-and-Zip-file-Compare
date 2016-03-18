@@ -1,24 +1,24 @@
 class Batch < ActiveRecord::Base
-	has_many :records, :dependent => :destroy
+	has_many :records, dependent: :destroy
 	belongs_to :user
 
 	validates :name, presence: true
 
 	## CSV File
   	has_attached_file :csvfile,
-  		:url => "/attachments/:id/:style/:basename.:extension",
-        :path => ":rails_root/public/attachments/:id/:style/:basename.:extension"
+  		url: "/attachments/:id/:style/:basename.:extension",
+        path: ":rails_root/public/attachments/:id/:style/:basename.:extension"
 
   	validates_attachment :csvfile, presence: true,
-    :content_type => { content_type: 'text/csv' }
+    content_type: { content_type: 'text/csv' }
 
     ## Zip File
   	has_attached_file :zipfile,
-  	 	:url => "/attachments/:id/:style/:basename.:extension",
-        :path => ":rails_root/public/attachments/:id/:style/:basename.:extension"
+  	 	url: "/attachments/:id/:style/:basename.:extension",
+        path: ":rails_root/public/attachments/:id/:style/:basename.:extension"
                    
   	validates_attachment :zipfile, presence: true,
-    :content_type => { content_type: 'application/zip' }
+    content_type: { content_type: 'application/zip' }
 
     # before_save :parse_csv_file
     # after_save :parse_csv_file, :parse_pdf, :get_pdf_files, :remove_folder
