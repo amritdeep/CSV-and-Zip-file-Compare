@@ -15,16 +15,13 @@ RSpec.describe BatchesController, :type => :controller do
 
 	describe "Authenticate User" do
 
-		let!(:user) 				{ create(:user) }
+		let!(:user){ create(:user) }
 
 		before :each do
 			login_with user
-			# let(:batch) { create(:batch) }
-			# let(:record) { create(:record) }
 		end
 
 		it "should allow to visit index page" do
-			# login_with(:user)
 			batch = create(:batch)
 			get :index
 			expect(response).to be_success
@@ -35,13 +32,17 @@ RSpec.describe BatchesController, :type => :controller do
 		it "should run/create batch" do
 			get :new
 			expect(response).to be_success
+			expect(response).to render_template(:new)
 		end
 
-		xit "should show all the batches" do
-			# batch = build(:batch)
-			batch = create(:batch)
-			get :show, { id: batch.id, user_id: my_cool_user.id }
-			# binding.pry
+		it "should show all the batches" do
+			batch = create(:batch, user_id: user.id)
+			get :show, { id: batch.id }
+			
+			expect(response).to be_success
+			expect(response).to render_template(:show)
+			expect(batch.user_id).to eql(user.id)
+			expect(user.batches.count).to eql(1)
 		end
 
 		it "should run batch with data" do
