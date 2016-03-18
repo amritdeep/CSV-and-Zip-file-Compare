@@ -14,8 +14,11 @@ RSpec.describe BatchesController, :type => :controller do
 	end
 
 	describe "Authenticate User" do
+
+		let!(:user) 				{ create(:user) }
+
 		before :each do
-			login_with :user
+			login_with user
 			# let(:batch) { create(:batch) }
 			# let(:record) { create(:record) }
 		end
@@ -30,19 +33,26 @@ RSpec.describe BatchesController, :type => :controller do
 		end
 
 		it "should run/create batch" do
-			# login_with(:user)
-
 			get :new
 			expect(response).to be_success
 		end
 
-		xit "should run batch with data" do
-			batch = build(:batch)
+		xit "should show all the batches" do
+			# batch = build(:batch)
+			batch = create(:batch)
+			get :show, { id: batch.id, user_id: my_cool_user.id }
 			# binding.pry
-			# post :create, { batch: batch }
-			post :create, { name: batch.name, csvfile: batch.csvfile, zipfile: batch.zipfile }
 		end
 
+		it "should run batch with data" do
+			batch = create(:batch, user_id: user.id)
+			post :create, format: :html, batch: { name: batch.name, csvfile: fixture_file_upload('example.csv', 'text/csv'), zipfile: fixture_file_upload('archive.zip', 'application/zip')}
+
+			expect(user.id).to eql(user.id)
+			expect(user.batches.count).to eql(2)
+			expect(user.batches.first.csvfile_file_name).to eql("example.csv")
+			expect(user.batches.first.zipfile_file_name).to eql("archive.zip")
+		end
 
 	end
 
