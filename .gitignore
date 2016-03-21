@@ -35,6 +35,7 @@ bower.json
 .powenv
 
 /config/database.yml
+/config/secrets.yml
 /config/aws.yml
 /config/local_env.yml
 
