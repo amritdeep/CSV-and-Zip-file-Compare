@@ -9,6 +9,9 @@ set :repo_url, 'git@git.cratebind.com:cratebind/keystone.git'
 set :branch, 'master'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
+set :deploy_to, '/home/keystone'
+set :rvm_type, :user 
+set :bundle_binstubs, -> { '/home/keystone/shared/bin' }
 
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
@@ -20,16 +23,9 @@ set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to true if using ActiveRecord
 
-set :deploy_to, '/home/keystone'
-set :rvm_type, :user 
-set :bundle_binstubs, -> { '/home/keystone/shared/bin' }
-
-
 set :pty, true #to run sudo commands
 set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/local_env.yml', 'config/puma.rb')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'bin', 'tmp/keystone')
-
-
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
