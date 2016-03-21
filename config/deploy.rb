@@ -13,7 +13,7 @@ set :deploy_to, '/home/keystone'
 set :rvm_type, :user 
 set :bundle_binstubs, -> { '/home/keystone/shared/bin' }
 set :pty, true #to run sudo commands
-set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/local_env.yml')
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml', 'config/local_env.yml', 'config/puma.rb')
 set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'bin', 'tmp/keystone')
 
 # Default branch is :master

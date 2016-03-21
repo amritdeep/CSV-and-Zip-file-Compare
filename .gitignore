@@ -39,4 +39,5 @@ bower.json
 /config/aws.yml
 /config/local_env.yml
 
+
 /coverage

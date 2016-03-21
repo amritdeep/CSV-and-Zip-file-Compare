@@ -21,6 +21,10 @@ group :development do
 	gem 'web-console', '~> 2.0'
 end
 
+group :staging, :production do 
+	gem "puma"
+end
+
 group :development, :test do
 	gem 'capistrano',         require: false
 	gem 'simplecov', 		  require: false
