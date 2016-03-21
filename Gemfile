@@ -27,10 +27,10 @@ end
 
 group :development, :test do
 	gem 'capistrano',         require: false
-	gem 'simplecov', 		  require: false
 	gem 'capistrano-rvm',     require: false
 	gem 'capistrano-rails',   require: false
 	gem 'capistrano-bundler', require: false
+	gem 'capistrano3-puma',   require: false
 	gem 'with_advisory_lock'
 	gem 'byebug'
 	gem 'pry'
@@ -43,4 +43,5 @@ group :development, :test do
 	gem 'database_cleaner'
 	gem 'shoulda-matchers', require: false
 	gem 'shoulda-callback-matchers'
+	gem 'simplecov', 		  require: false
 end
