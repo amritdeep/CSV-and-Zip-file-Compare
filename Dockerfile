@@ -1,0 +1,1 @@
+FROM tcnksm/centos-ruby:2.1
