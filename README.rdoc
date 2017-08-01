@@ -3,5 +3,5 @@ Upload CSV file and zip file. The CSV file should be in format of id,name. When 
 ## Docker used
 
 - mv CSV-and-Zip-file-Compare compare
-- docker build -t compare
+- docker build -t compare .
 - docker run -itP compare
