@@ -1,1 +1,7 @@
 Upload CSV file and zip file. The CSV file should be in format of id,name. When the file are match it upload the content of zip file in and Display it.  
+
+## Docker used
+
+mv SV-and-Zip-file-Compare compare
+docker build -t compare
+docker run -itP compare
