@@ -8,7 +8,7 @@ script:
   - bundle exec rake db:test:prepare
   - bundle exec rspec spec/
   - bundle exec rake db:migrate
-  - rails server -p 3000
+  - bundle exec rails server -p 3000
 
 before_script:
   # - cp config/database.example.yml config/database.yml
