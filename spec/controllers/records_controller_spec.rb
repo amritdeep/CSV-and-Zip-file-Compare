@@ -17,7 +17,7 @@ RSpec.describe RecordsController, :type => :controller do
 		# 	expect(response).to be_success
 		# end
 
-		it "should able to upload file with pdf file" do
+		xit "should able to upload file with pdf file" do
 			patch :update, format: :html, id: record.id, batch_id: batch.id, record: { pdf: fixture_file_upload('example.pdf', 'application/pdf')}
 			expect(response).to redirect_to(batch_path(batch.id))
 		end
